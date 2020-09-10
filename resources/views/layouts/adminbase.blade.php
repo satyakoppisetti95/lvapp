@@ -12,17 +12,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- setting meta title and description from db -->
-    <title>{{ $page->meta_title ?? config('app.name', 'Laravel') }}</title>
-    @if(isset($page))
-    <meta name="title" content="{{ $page->meta_title }}">
-    <meta name="description" content="{{ $page->meta_description }}">
-         <!-- setting no index -->
-        @if($page->no_index > 0)
-        <meta name="robots" content="noindex">
-        @endif
-    @else
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <meta name="robots" content="noindex">
-    @endif
 
    
 
@@ -31,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.navbar')
+        @include('layouts.adminnavbar')
         <div class="container">
             @include('layouts.messages')
             @yield('content')

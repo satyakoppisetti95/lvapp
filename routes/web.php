@@ -20,3 +20,5 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomePageController@index')->name('home');
+Route::get('/admin', 'AdminPageController@index')->name('admin');
+Route::get('/contact-us', 'ContactPageController@index')->name('contact');
