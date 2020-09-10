@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
 @section('content')
-<h1>Hello World</h1>
-whatever i got it working
+<h1>{{ $page->title }}</h1>
+<p>{{ $page->content }}</p>
 @endsection
