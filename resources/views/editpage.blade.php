@@ -10,7 +10,7 @@
     </nav>
 
 
-
+    <div class="container">
     <h1>Edit Page</h1>
     {!! Form::open(['action' => 'AdminPageController@updatepage', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
@@ -45,12 +45,22 @@
             @endif
         </div>
 
+        <div class="form-group">
+            {{Form::label('cover_image', 'Cover Image. (Optional. Leave it blank, if you wish to not change the existing image)')}}
+            <br>
+            {{Form::file('cover_image')}}
+        </div>
+
         
         {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
 
     {!! Form::close() !!}
 
     <br><br><br><br><br><br>
+
+    </div>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
     <script type="text/javascript">

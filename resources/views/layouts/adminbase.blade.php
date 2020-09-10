@@ -15,18 +15,16 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta name="robots" content="noindex">
 
-   
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         @include('layouts.adminnavbar')
-        <div class="container">
+        
             @include('layouts.messages')
             @yield('content')
-        </div>
+        
     </div>
 
    
