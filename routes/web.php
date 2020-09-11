@@ -23,6 +23,7 @@ Route::get('/', 'HomePageController@index')->name('home');
 Route::get('/admin', 'AdminPageController@index')->name('admin');
 Route::get('/editpage/{id}', 'AdminPageController@editpage');
 Route::post('/updatepage', 'AdminPageController@updatepage');
+Route::post('/updateglobals', 'AdminPageController@updateglobals');
 Route::get('/contact-us', 'ContactPageController@index')->name('contact');
 
 

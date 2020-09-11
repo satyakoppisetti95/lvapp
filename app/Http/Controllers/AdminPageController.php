@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Page;
+use App\AppWideKey;
 
 class AdminPageController extends Controller
 {
@@ -20,13 +21,39 @@ class AdminPageController extends Controller
     } 
     //
     public function index(){
+        $contact_mail = AppWideKey::find(1)->value;
+        $google_key = AppWideKey::find(2)->value;
+        $fb_key = AppWideKey::find(3)->value;
         $pages = Page::all();
-        return view('admin')->with('pages',$pages);
+        $data = array('pages'=>$pages, 'google_key'=>$google_key,'fb_key'=>$fb_key,'contact_mail'=>$contact_mail);
+        return view('admin')->with($data);
     }
 
     public function editpage($id){
         $page = Page::findOrFail($id);
         return view('editpage')->with('page',$page);
+    }
+
+    public function updateglobals(Request $request){
+        $this->validate($request, [
+            'contact_mail'=>'required',
+            'google_key' => 'required',
+            'fb_key' => 'required',
+        ]);
+
+        $contact_mail =  AppWideKey::findOrFail(1);
+        $contact_mail->value = $request->input('contact_mail');
+        $contact_mail->save();
+
+        $google_key =  AppWideKey::findOrFail(2);
+        $google_key->value = $request->input('google_key');
+        $google_key->save();
+
+        $fb_key =  AppWideKey::findOrFail(3);
+        $fb_key->value = $request->input('fb_key');
+        $fb_key->save();
+
+        return redirect('admin')->with('success','updated succesfully');
     }
 
     public function updatepage(Request $request){
@@ -42,17 +69,17 @@ class AdminPageController extends Controller
         $id = $request->input('id');
         $page = Page::findOrFail($id);
 
-        // Handle File Upload
+
         if($request->hasFile('cover_image')){
-            // Get filename with the extension
+
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            // Get just filename
+
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
+
             $extension = $request->file('cover_image')->getClientOriginalExtension();
-            // Filename to store
+
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
+
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         }
 
